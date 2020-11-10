@@ -9,6 +9,6 @@ public class SpriteRotation : MonoBehaviour
     {
         Vector3 targetVector = cam.position - transform.position;
         float newYAngle = Mathf.Atan2(targetVector.x,targetVector.y) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(45f,-1 * newYAngle,0f);       
+        transform.rotation = Quaternion.Euler(45f,-1 * newYAngle,0f);      
     }
 }
