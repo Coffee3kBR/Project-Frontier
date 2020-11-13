@@ -5,6 +5,7 @@ using UnityEngine;
 public class PCMove : MonoBehaviour
 {
     public CharacterController controller;
+    public Animator animator;
 
     public float speed;
     public float gravity;
@@ -36,5 +37,9 @@ public class PCMove : MonoBehaviour
 
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
+        
+        animator.SetFloat("Horizontal", move.x);
+        animator.SetFloat("Vertical", move.z);
+        animator.SetFloat("Magnitude", move.magnitude);
     }
 }
