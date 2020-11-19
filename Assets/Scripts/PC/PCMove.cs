@@ -13,15 +13,20 @@ public class PCMove : MonoBehaviour
     Vector3 velocity;
     
     public Transform groundCheck;
-    public float goundDistance = 0.4f;
+    public float groundDistance = 0.4f;
     public LayerMask groundMask;
 
     bool isGrounded;
 
+    private AudioSource audioSrc;
+    private void Start() 
+    {
+        audioSrc = GetComponent<AudioSource>();
+    }
     // Update is called once per frame
     void Update()
     {
-        isGrounded = Physics.CheckSphere(groundCheck.position, goundDistance, groundMask);
+        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
         if (isGrounded && velocity.y < 0)
         {
@@ -37,9 +42,17 @@ public class PCMove : MonoBehaviour
 
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
-        
+
         animator.SetFloat("Horizontal", move.x);
         animator.SetFloat("Vertical", move.z);
         animator.SetFloat("Magnitude", move.magnitude);
+
+        if(move.magnitude > 0.1)
+        {
+            if(!audioSrc.isPlaying)
+                audioSrc.Play();
+        }
+        else
+            audioSrc.Stop();
     }
 }
